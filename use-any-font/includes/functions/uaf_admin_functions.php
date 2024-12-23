@@ -205,8 +205,8 @@ function uaf_save_options(){
 
 function uaf_admin_notices(){
 	// ASKING FOR REVIEW
-	if (isset($_GET['uaf_reviews_notice_hide']) == 1){
-    	update_option('uaf_reviews_notice_hide','yes');
+	if (isset($_GET['uaf_reviews_notice_hide']) && $_GET['uaf_reviews_notice_hide'] == '1') {
+		update_option('uaf_reviews_notice_hide','yes');		
 	}
 
 	if (get_option('uaf_reviews_notice_hide') != 'yes'){
@@ -222,8 +222,8 @@ function uaf_admin_notices(){
                     <ul style="padding-left:50px;list-style-type: square;">
                         <li><a href="https://wordpress.org/support/plugin/use-any-font/reviews/?filter=5" target="_blank">Ok, you deserve it</a></li>
                         <li><a href="https://dineshkarki.com.np/contact" target="_blank">I still have problem !!</a></li>
-                        <li><a href="?page=use-any-font&uaf_reviews_notice_hide=1">I already did</a></li>
-                        <li><a href="?page=use-any-font&uaf_reviews_notice_hide=1">Hide this message</a></li>
+                        <li><a href="'.esc_url(add_query_arg('uaf_reviews_notice_hide', '1')).'">I already did</a></li>
+                        <li><a href="'.esc_url(add_query_arg('uaf_reviews_notice_hide', '1')).'">Hide this message</a></li>
                     </ul>
              </div>';
         }
