@@ -228,7 +228,17 @@ function uaf_admin_notices(){
              </div>';
         }
     }
-    // EOF ASKING FOR REVIEW    
+    // EOF ASKING FOR REVIEW
+
+    // CSS WRITE ERROR NOTICE
+    $error_message = get_transient('uaf_css_write_error');
+    if ($error_message) {
+        echo '<div class="notice notice-error is-dismissible">
+                <p><strong>Use Any Font Error:</strong> ' . esc_html($error_message) . '</p>
+              </div>';
+        delete_transient('uaf_css_write_error'); // Remove the error after displaying
+    }
+    
 }
 
 function uaf_trigger_actions(){

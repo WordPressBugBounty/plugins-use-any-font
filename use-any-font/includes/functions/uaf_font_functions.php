@@ -100,9 +100,12 @@ function uaf_path_details(){
 }
 
 function uaf_create_folder() {
-	$uaf_upload_path	= uaf_path_details();
-	if (! is_dir($uaf_upload_path['dir'])) {
-       mkdir( $uaf_upload_path['dir'], 0755 );
+    $uaf_upload_path = uaf_path_details();
+    
+    if (!is_dir($uaf_upload_path['dir'])) {
+        if (!@mkdir($uaf_upload_path['dir'], 0755, true)) { 
+            set_transient('uaf_folder_create_error', "Cannot create folder. Please check folder permissions.", 60 * 10);
+        }
     }
 }
 
@@ -188,9 +191,12 @@ function uaf_write_css(){
 		endif;	
 		$uaf_style = ob_get_contents();
 		$uafStyleSheetPath	= $uaf_upload_path['dir'].'/uaf.css';
-		$fh = fopen($uafStyleSheetPath, 'w') or die("Can't open file");
-		fwrite($fh, $uaf_style);
-		fclose($fh);
+		if ($fh = @fopen($uafStyleSheetPath, 'w')) { // Suppress warnings and check if file opens
+		    fwrite($fh, $uaf_style);
+		    fclose($fh);
+		} else {
+		    set_transient('uaf_css_write_error', "Cannot write to CSS file. Please check file permissions.", 60 * 10); // Store error for 10 minutes
+		}
 	ob_end_clean();
 	
 	ob_start();
@@ -213,14 +219,21 @@ function uaf_write_css(){
 		endif;
 		$uaf_style = ob_get_contents();
 		$uafStyleSheetPath	= $uaf_upload_path['dir'].'/admin-uaf.css';
-		$fh = fopen($uafStyleSheetPath, 'w') or die("Can't open file");
-		fwrite($fh, $uaf_style);
-		fclose($fh);
-		
+		if ($fh = @fopen($uafStyleSheetPath, 'w')) { // Suppress warnings and check if file opens
+		    fwrite($fh, $uaf_style);
+		    fclose($fh);
+		} else {
+		    set_transient('uaf_css_write_error', "Cannot write to CSS file. Please check file permissions.", 60 * 10); // Store error for 10 minutes
+		}
+				
 		$uafStyleSheetPath	= $uaf_upload_path['dir'].'/admin-uaf-rtl.css';
-		$fh = fopen($uafStyleSheetPath, 'w') or die("Can't open file");
-		fwrite($fh, $uaf_style);
-		fclose($fh);
+		if ($fh = @fopen($uafStyleSheetPath, 'w')) { // Suppress warnings and check if file opens
+		    fwrite($fh, $uaf_style);
+		    fclose($fh);
+		} else {
+		    set_transient('uaf_css_write_error', "Cannot write to CSS file. Please check file permissions.", 60 * 10); // Store error for 10 minutes
+		}
+
 	ob_end_clean();
 	update_option('uaf_css_updated_timestamp', time()); // Time entry for stylesheet version
 	update_option('uaf_site_url', base64_encode(site_url()));
@@ -446,4 +459,14 @@ function uaf_order_font_by_weight($a, $b) {
   	  } else {
   	  	return 0;
   	  }
+}
+
+function uaf_css_write_error() {
+    $error_message = get_transient('uaf_css_write_error');
+    if ($error_message) {
+        echo '<div class="notice notice-error is-dismissible">
+                <p><strong>Use Any Font Error:</strong> ' . esc_html($error_message) . '</p>
+              </div>';
+        delete_transient('uaf_css_write_error'); // Remove the error after displaying
+    }
 }

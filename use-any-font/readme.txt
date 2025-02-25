@@ -3,7 +3,7 @@ Contributors: dnesscarkey
 Tags: custom fonts, font manager, font uploader, typography, google fonts
 Requires at least: 4.0
 Tested up to: 6.7.1
-Stable tag: 6.3.11
+Stable tag: 6.3.12
 Requires PHP: 7.0
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
@@ -169,6 +169,9 @@ Please do write us after integration and we will add it in our supported list.
 1. Screenshot #6. Assign fonts to custom elements.
 
 == Changelog ==
+
+= 6.3.12 =
+* Improved error handling for file write permission issues during font upload. 
 
 = 6.3.11 =
 * Fixed Admin Notice hide issue. 
