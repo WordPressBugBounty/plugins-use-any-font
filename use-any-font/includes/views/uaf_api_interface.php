@@ -16,19 +16,20 @@
                         <span class="active_key">
                             
                             <?php 
-                            if ($GLOBALS['uaf_user_settings']['uaf_hide_key'] == 'yes'){
+                                echo '##############################';
+                            /*if ($GLOBALS['uaf_user_settings']['uaf_hide_key'] == 'yes'){
                                 echo '##############################';
                             } else {
                                 echo esc_html($GLOBALS['uaf_user_settings']['uaf_api_key']);
-                            } ?>
+                            } */ ?>
 
                         - Active</span>
                         
                         <input type="submit" name="uaf_api_key_deactivate" class="button-primary" value="Remove Key" onclick="if(!confirm('Are you sure ?')){return false;}" />
 
-                        <?php if ($GLOBALS['uaf_user_settings']['uaf_hide_key'] != 'yes'){ ?>
+                        <?php /* if ($GLOBALS['uaf_user_settings']['uaf_hide_key'] != 'yes'){ ?>
                         <input type="submit" name="uaf_api_key_hide" class="button-primary" value="Hide Key" onclick="if(!confirm('Are you sure ? You can only see the key, when you remove the key and add it again.')){return false;}" />
-                        <?php }?>
+                        <?php } */ ?>
                     <?php endif;?>
                 </span>				
 		</p>       
