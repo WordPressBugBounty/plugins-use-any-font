@@ -183,7 +183,7 @@ function uaf_write_css(){
 				} else {
 					$font_name = $fontsData[$fontImplementData['font_key']]['font_name'];
 				}?>
-				<?php echo esc_html($fontImplementData['font_elements']); ?>{
+				<?php echo uaf_sanitize_css_selector($fontImplementData['font_elements']); ?>{
 					font-family: '<?php echo esc_html($font_name);  ?>' !important;
 				}
 		<?php
@@ -305,6 +305,20 @@ function uaf_save_font_assign(){
 	}	
 	
 	$custom_elements		= trim(sanitize_textarea_field($_POST['custom_elements']));
+
+	if ( empty($font_key) ) {
+	    return array(
+	        'status' => 'error',
+	        'body'   => 'Please select a font before assigning.'
+	    );
+	}
+
+	if ( empty($elements) && empty($custom_elements) ) {
+	    return array(
+	        'status' => 'error',
+	        'body'   => 'Please select at least one element or add a custom element.'
+	    );
+	}
 
 	$fontsData      		= uaf_get_uploaded_font_data();
 	$font_name 				= $fontsData[$font_key]['font_name'];
@@ -469,4 +483,13 @@ function uaf_css_write_error() {
               </div>';
         delete_transient('uaf_css_write_error'); // Remove the error after displaying
     }
+}
+
+function uaf_sanitize_css_selector( $selector ) {
+    // Allow only valid CSS selector characters
+    return preg_replace(
+        '/[^A-Za-z0-9\s\-\_\.\#\>\:\,\*\+\~\[\]\=\"\'\(\)\/]/',
+        '',
+        $selector
+    );
 }
