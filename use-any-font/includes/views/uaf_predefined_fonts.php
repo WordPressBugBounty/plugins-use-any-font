@@ -1,5 +1,6 @@
 <?php if ( ! defined( 'ABSPATH' ) ) exit;
 $predefinedUplaodedFonts = uaf_get_uploaded_predefined_fonts();
+$uaf_add_predefined_font_nonce = wp_create_nonce( 'uaf_add_predefined_font' );
 ?>
 
     <div class="uaf_search_bar">
@@ -37,13 +38,14 @@ $predefinedUplaodedFonts = uaf_get_uploaded_predefined_fonts();
     }
 
     function uaf_font_list_block(font, predefinedUplaodedFonts){
+        var addNonce = '<?php echo esc_js($uaf_add_predefined_font_nonce); ?>';
         var fontListHTML    = '<div class="font_holder">';
         fontListHTML        += '<div class="font_meta">';
         fontListHTML        += '<div class="font_name">'+font.font_name+' <em>( '+font.font_sub_family+' )</em> </div>';
         if (predefinedUplaodedFonts.includes(font.id)){
             fontListHTML    += '<div class="add_font_link"><a href="javascript:void(0);" class="button-primary" disabled="disabled">Already Added</a></div>';
         } else {
-            fontListHTML    += '<div class="add_font_link"><a onclick="uaf_add_loading_text(this);" href="admin.php?page=use-any-font&tab=font_upload&predefinedfontid='+font.id+'" class="button-primary">Add To Your Site</a></div>';
+            fontListHTML    += '<div class="add_font_link"><a onclick="uaf_add_loading_text(this);" href="admin.php?page=use-any-font&tab=font_upload&predefinedfontid='+font.id+'&uaf_nonce='+addNonce+'" class="button-primary">Add To Your Site</a></div>';
         }
         fontListHTML        += '</div>';
         fontListHTML        += '<div class="font_demo">';

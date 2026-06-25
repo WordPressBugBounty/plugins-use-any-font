@@ -337,7 +337,11 @@ function uaf_trigger_actions(){
 		}
 
 		if (isset($_GET['predefinedfontid'])){
-		    $actionReturn = uaf_add_pre_defined_font($_GET['predefinedfontid']);
+			if ( isset($_GET['uaf_nonce']) && wp_verify_nonce($_GET['uaf_nonce'], 'uaf_add_predefined_font')) {
+				$actionReturn = uaf_add_pre_defined_font($_GET['predefinedfontid']);
+			} else {
+				$actionReturn = $actionReturnNonceError;
+			}
 		}		
 
 	} else {
