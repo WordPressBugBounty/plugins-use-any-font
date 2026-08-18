@@ -23,7 +23,7 @@ add_thickbox();
                  <p>
                      <label>&nbsp;</label>
                      <span class="field">
-                         <input type="checkbox" name="enable_font_variation" id="enable_font_variation" onclick="multi_variation_holder_toggle();"> Enable Font Weight Variation ( For Advance Users ). <a href="https://dineshkarki.com.np/add-multiple-font-variation-in-use-any-font.html" target="_blank">How to !</a>
+                         <input type="checkbox" name="enable_font_variation" id="enable_font_variation" onclick="multi_variation_holder_toggle();"> Enable Font Variation (Weight, Style & Width). <a href="https://dineshkarki.com.np/add-multiple-font-variation-in-use-any-font.html" target="_blank">How to !</a>
                      </span>
                  </p>
                  <div class="multi_variation_holder" style="display:none;">
@@ -42,7 +42,18 @@ add_thickbox();
                          <span class="field">
                              <select name="font_style" class="medium">
                                 <option value="normal">Normal</option>
-                                <option value="italic">Italic</option>                            
+                                <option value="italic">Italic</option>
+                                <option value="oblique">Oblique</option>
+                             </select>
+                         </span>
+                    </p>
+                    <p>
+                         <label>Font Width / Stretch</label>
+                         <span class="field">
+                             <select name="font_stretch" class="medium">
+                                <?php foreach ($GLOBALS['uaf_fix_settings']['font_stretch_variations'] as $stretch_val => $stretch_label): ?>
+                                    <option value="<?php echo esc_attr($stretch_val) ?>"><?php echo esc_html($stretch_label); ?></option>
+                                <?php endforeach; ?>
                              </select>
                          </span>
                     </p>

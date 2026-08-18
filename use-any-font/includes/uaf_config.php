@@ -1,7 +1,7 @@
 <?php
 if ( ! defined( 'ABSPATH' ) ) exit; 
 
-$GLOBALS['uaf_current_version']				= '6.4';
+$GLOBALS['uaf_current_version']				= '6.4.1';
 
 
 $GLOBALS['uaf_fix_settings'] 				= array(
@@ -26,6 +26,17 @@ $GLOBALS['uaf_fix_settings'] 				= array(
 																					'700' => 'Bold 700',
 																					'800' => 'Extra Bold 800',
 																					'900' => 'Black 900'
+																					),
+													'font_stretch_variations'=> array(
+																					'normal'          => 'Normal',
+																					'ultra-condensed' => 'Ultra Condensed',
+																					'extra-condensed' => 'Extra Condensed',
+																					'condensed'       => 'Condensed',
+																					'semi-condensed'  => 'Semi Condensed',
+																					'semi-expanded'   => 'Semi Expanded',
+																					'expanded'        => 'Expanded',
+																					'extra-expanded'  => 'Extra Expanded',
+																					'ultra-expanded'  => 'Ultra Expanded'
 																					)
 
 													);

@@ -49,7 +49,7 @@ function uaf_inject_fonts_in_theme_json( $theme_json ) {
 		foreach ($fontData as $fontVariationKey => $fontVariationData) {
 			$font_faces[] = array(
 				'fontFamily'  => $fontName,
-				'fontStretch' => '',
+				'fontStretch' => isset($fontVariationData['font_stretch']) ? $fontVariationData['font_stretch'] : '',
 				'fontStyle'   => isset($fontVariationData['font_style']) ? $fontVariationData['font_style'] : 'normal',
 				'fontWeight'  => isset($fontVariationData['font_weight']) ? $fontVariationData['font_weight'] : '400',
 				'src'         => esc_url($uaf_upload_url . $fontVariationData['font_path']) . '.woff2'

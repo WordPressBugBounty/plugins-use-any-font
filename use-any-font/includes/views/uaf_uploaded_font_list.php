@@ -22,15 +22,25 @@ if (!empty($fontsData)):
             ?>
                 <div class="font_demo">
                     
-                    <?php                       
-                        if (isset($fontData['font_weight']) && !empty(trim($fontData['font_weight']))):
+                    <?php 
+                        $variation_label_parts = array();
+                        if (isset($fontData['font_weight']) && !empty(trim($fontData['font_weight']))) {
+                            $variation_label_parts[] = isset($GLOBALS['uaf_fix_settings']['font_weight_variations'][$fontData['font_weight']]) ? $GLOBALS['uaf_fix_settings']['font_weight_variations'][$fontData['font_weight']] : $fontData['font_weight'];
+                        }
+                        if (isset($fontData['font_style']) && !empty(trim($fontData['font_style']))) {
+                            $variation_label_parts[] = ucfirst($fontData['font_style']);
+                        }
+                        if (isset($fontData['font_stretch']) && !empty(trim($fontData['font_stretch'])) && $fontData['font_stretch'] !== 'normal') {
+                            $variation_label_parts[] = isset($GLOBALS['uaf_fix_settings']['font_stretch_variations'][$fontData['font_stretch']]) ? $GLOBALS['uaf_fix_settings']['font_stretch_variations'][$fontData['font_stretch']] : $fontData['font_stretch'];
+                        }
+                        if (!empty($variation_label_parts)):
                     ?>
                         <div class="font-weight-style">
-                            <?php echo esc_html($GLOBALS['uaf_fix_settings']['font_weight_variations'][$fontData['font_weight']]); ?> <?php echo esc_html($fontData['font_style']); ?>
+                            <?php echo esc_html(implode(' | ', $variation_label_parts)); ?>
                         </div>
                     <?php endif; ?>
 
-                    <span class="<?php echo esc_attr($fontData['font_name']) ?>" style="font-weight:<?php echo esc_attr(array_key_exists('font_weight', $fontData)?$fontData['font_weight']:''); ?>; font-style: <?php echo esc_attr(array_key_exists('font_style', $fontData)?$fontData['font_style']:''); ?>;">The quick brown fox jumps over the lazy dog</span>
+                    <span class="<?php echo esc_attr($fontData['font_name']) ?>" style="font-weight:<?php echo esc_attr(array_key_exists('font_weight', $fontData)?$fontData['font_weight']:''); ?>; font-style: <?php echo esc_attr(array_key_exists('font_style', $fontData)?$fontData['font_style']:''); ?>; font-stretch: <?php echo esc_attr(array_key_exists('font_stretch', $fontData)?$fontData['font_stretch']:''); ?>;">The quick brown fox jumps over the lazy dog</span>
 
                     <div class="delete_link"><a onclick="if (!confirm('Are you sure ?')){return false;}" href="<?php echo wp_nonce_url( 'admin.php?page=use-any-font&tab=font_upload&delete_font_key='.$key, 'uaf_delete_font', 'uaf_nonce' ); ?>">Delete</a></div>
                 </div>

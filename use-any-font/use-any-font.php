@@ -5,7 +5,7 @@ Plugin Name: Use Any Font
 Plugin URI: https://dineshkarki.com.np/use-any-font
 Description: Embed any font in your website
 Author: Dnesscarkey
-Version: 6.4
+Version: 6.4.1
 Author URI: https://dineshkarki.com.np/use-any-font
 */
 
